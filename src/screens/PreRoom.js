@@ -9,7 +9,7 @@ const PreRoom = () => {
   const { loggedInUsername } = useAuth();
 
   const startRoom = (e) => {
-    navigate('/room/0123'); // Replace '/pre-room' with the path of your route
+    navigate('/room/0123');
     // e.preventDefault();
   };
 
