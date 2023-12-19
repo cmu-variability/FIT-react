@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { checkLoginCredentials } from '../firebaseConfig'; // adjust the import path as needed
+import { useAuth } from '../authContext'; // Adjust the path as per your directory structure
 import '../styles/login.css'; // Assuming you have a separate CSS file
 
 const Login = () => {
@@ -9,11 +10,14 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const { setLoggedInUsername } = useAuth();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await checkLoginCredentials(username, password);
     if (result.valid) {
       console.log('Login successful. Group:', result.group);
+      setLoggedInUsername(username);
       navigate('/pre-room'); // Replace '/pre-room' with the path of your route
     } else {
       console.log('Invalid username or password');
