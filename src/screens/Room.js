@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import ZoomMtgEmbedded from '@zoomus/websdk/embedded'
 
 const Room = () => {
   const [showChat, setShowChat] = useState(true);
   const navigate = useNavigate();
+  const { meetingNumber } = useParams();
 
   const leaveCall = () => {
     navigate('/waiting-room');
@@ -13,17 +16,35 @@ const Room = () => {
     setShowChat(!showChat);
   }
 
+  const client = ZoomMtgEmbedded.createClient()
+
+  let meetingSDKElement = document.getElementById('meetingSDKElement')
+
+  useEffect(() => {
+    let meetingSDKElement = document.getElementById('meetingSDKElement');
+    client.init({
+      zoomAppRoot: meetingSDKElement,
+      language: 'en-US'
+    });
+
+    // Here, you would also include the logic to start the meeting
+    // client.join({ /* Meeting details like API Key, meeting number, etc. */ })
+
+  }, []);
+
   return (
     <div style={{ width: '90%', margin: '0 auto', height: '100vh' }}>
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
         <div style={{ display: 'flex', flex: 9, marginTop: '20px' }}>
           <div style={{ flex: showChat ? 3 : 4, borderRadius: '15px', border: '1px solid black', marginRight: showChat ? '10px' : '0' }}>
-            {/* Empty div for video */}
+            <div id="meetingSDKElement">
+
+            </div>
           </div>
           {showChat && (
             <div style={{ flex: 1, borderRadius: '15px', border: '1px solid black', padding: '10px' }}>
               {/* Chat section */}
-              <p>Chat</p>
+              <p>Chat {meetingNumber}</p>
             </div>
           )}
         </div>

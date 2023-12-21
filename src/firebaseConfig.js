@@ -17,7 +17,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 
-
 export const checkLoginCredentials = async (username, password) => {
     try {
       const userDocRef = doc(firestore, `Users/${username}`);

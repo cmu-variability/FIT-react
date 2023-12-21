@@ -1,14 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../authContext';
 
 const PreRoom = () => {
 
   const navigate = useNavigate();
 
-  const username = "YourUsername"; // Replace with dynamic username if needed
+  const { loggedInUsername } = useAuth();
 
   const startRoom = (e) => {
-    navigate('/room'); // Replace '/pre-room' with the path of your route
+    navigate('/room/0123');
     // e.preventDefault();
   };
 
@@ -16,7 +17,7 @@ const PreRoom = () => {
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', borderBottom: '1px solid black' }}>
         <h2 style={{marginLeft: '75px'}}>FIT</h2>
-        <span style={{marginRight: '75px'}}>{username}</span>
+        <span style={{marginRight: '75px'}}>{loggedInUsername}</span>
       </div>
 
       <div style={{ width: '60%', margin: '0 auto' }}>
